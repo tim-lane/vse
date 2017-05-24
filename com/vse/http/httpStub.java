@@ -74,8 +74,8 @@ public class httpStub {
       configFileName = args[0];
       System.out.println("httpsStub: using config file: " + configFileName);
     } else {
-      configFileName = "C:\\dbox\\Dropbox\\java\\stubby\\xml\\http.xml";
-      System.out.println("httpsStub: using default config file: " + configFileName);
+      configFileName = "c:\\_git\\vse\\xml\\vseHttp.xml";
+      System.out.println("tcpStub: using default config file: " + configFileName);
     } 
     
     try {

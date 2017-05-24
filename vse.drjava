@@ -3,117 +3,117 @@
   <project autorefresh="false" main="com.vse.tcp.tcpStub" root="" work="">
     <createjar file=""/>
     <source>
-      <file active="true" name="com/vse/tcp/tcpStub.java" package="com.vse.tcp" timestamp="26-Apr-2017 16:20:19">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file active="true" name="com/vse/http/httpStub.java" package="com.vse.http" timestamp="24-May-2017 14:59:39">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/Com.java" package="" timestamp="26-Apr-2017 15:38:07">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/tcpStub.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/XMLExtractor.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:03">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/Com.java" package="" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/VariableFileArray.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:04">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/XMLExtractor.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/Variable.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:04">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/VariableFileArray.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/ThreadPoolProperties.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:04">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/Variable.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/StubWorker.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:04">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/ThreadPoolProperties.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/StobLog.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:05">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/StubWorker.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/ReceiverEvent.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:05">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/StobLog.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/RandomNumberGenerator.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:05">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/ReceiverEvent.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/LogFileProperties.java" package="com.vse.core" timestamp="26-Apr-2017 15:44:05">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/RandomNumberGenerator.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/httpsStub.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:09">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/LogFileProperties.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/httpStub.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:09">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/httpsStub.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpStubWorker.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:10">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpStubWorker.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpServerProperties.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:10">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpServerProperties.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpRecieverMessage.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:10">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpRecieverMessage.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpProperties.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:11">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpProperties.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpInputStream.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:11">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpInputStream.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/http/HttpBaseLineMessage.java" package="com.vse.http" timestamp="26-Apr-2017 15:44:12">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/http/HttpBaseLineMessage.java" package="com.vse.http" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/BaseLineMessage.java" package="com.vse.core" timestamp="26-Apr-2017 15:54:08">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/BaseLineMessage.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpServerProperties.java" package="com.vse.tcp" timestamp="26-Apr-2017 16:08:10">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpServerProperties.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpRecieverMessage.java" package="com.vse.tcp" timestamp="26-Apr-2017 16:08:09">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpRecieverMessage.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpProperties.java" package="com.vse.tcp" timestamp="26-Apr-2017 16:08:08">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpProperties.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpBaseLineMessage.java" package="com.vse.tcp" timestamp="26-Apr-2017 16:08:02">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpBaseLineMessage.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpInputStream.java" package="com.vse.tcp" timestamp="26-Apr-2017 17:03:15">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpInputStream.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/EventMessage.java" package="com.vse.core" timestamp="27-Apr-2017 18:28:12">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/EventMessage.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/core/CoreProperties.java" package="com.vse.core" timestamp="27-Apr-2017 18:28:13">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/core/CoreProperties.java" package="com.vse.core" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
-      <file name="com/vse/tcp/TcpStubWorker.java" package="com.vse.tcp" timestamp="27-Apr-2017 18:32:25">
-        <select from="2591" to="2591"/>
-        <scroll column="2664" row="0"/>
+      <file name="com/vse/tcp/TcpStubWorker.java" package="com.vse.tcp" timestamp="24-May-2017 14:46:07">
+        <select from="2030" to="2030"/>
+        <scroll column="784" row="0"/>
       </file>
     </source>
     <included/>

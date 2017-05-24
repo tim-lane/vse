@@ -75,7 +75,7 @@ public class tcpStub {
       configFileName = args[0];
       System.out.println("tcpsStub: using config file: " + configFileName);
     } else {
-      configFileName = "h:\\utils\\vse\\xml\\vseTcp.xml";
+      configFileName = "c:\\_git\\vse\\xml\\vseTcp.xml";
       System.out.println("tcpStub: using default config file: " + configFileName);
     } 
     

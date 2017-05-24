@@ -87,7 +87,8 @@ public class httpsStub {
     if (args.length > 0) {
       configFileName = args[0];
     } else { // default for testing purposes.
-      configFileName = "C:\\dbox\\Dropbox\\java\\stubby\\xml\\http.xml";
+      configFileName = "c:\\_git\\vse\\xml\\vsehttp.xml";
+      System.out.println("tcpStub: using default config file: " + configFileName);
     } 
     configMessage = "XML config file: " + configFileName;
     
