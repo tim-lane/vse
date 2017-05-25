@@ -83,7 +83,7 @@ public class httpStub {
        * open XML config file and from xml config file read HTTP properties
        */
       XMLExtractor extractor = new XMLExtractor(new FileInputStream(new File(configFileName)));
-      //System.out.println("httpStub: extracting : " + extractor.getElement("HTTPServer"));
+      System.out.println("httpStub: extracting : " + extractor.getElement("HTTPServer"));
       HttpProperties httpProperties = new HttpProperties(extractor.getElement("HTTPServer"));
       httpProperties.setConfigFileName(configFileName);
      

@@ -343,6 +343,7 @@ public class StubWorker {
     if (variable.getFormat().length() == 0) {
       variableValue = Double.valueOf(numberValue).toString();
     } else {
+      //System.out.println("StubWorker: variable format: " + variable.getFormat());
       variableValue = Printf.format(variable.getFormat(), new Object[] {Double.valueOf(numberValue)});
     }
     /*

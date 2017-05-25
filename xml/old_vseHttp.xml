@@ -3,18 +3,18 @@
 <!-- Configuration Section -->
 
 <!--  configuration  -->
-<TCPServer Host="10.26.28.77" Port="8888" ThreadCount="1000" 
-MonitorPort="9002" MonitorRefresh="10"/>
+<HTTPserver Host="localhost" Port="8888" ThreadCount="1000" />
 
-<StubMonitor MonitorHost="10.3.18.92" MonitorPort="9002" MonitorRefresh="10"/>
-
+<!--
+ <StubMonitor MonitorHost="10.3.18.92" MonitorPort="9002" MonitorRefresh="10"/>
+-->
 
 <!-- version control -->
 <!-- v0.5 - Tim Lane - 07/02/2014 - initial version -->
 	<Core Author="Tim Lane" Name="TCP TEST STUB" Description="TCP TEST STUB" > 
 	
 <!-- Date="07/02/2014"> -->
-	<Header DefaultReceiverEvent="SINK" LogLevel="DEBUG" LogFileName="h:\utils\vse\xml\log4j.properties"/>
+	<Header DefaultReceiverEvent="SINK" LogLevel="DEBUG" LogFileName="c:\_git\vse\xml\log4j.properties"/>
 
 <!-- variable section -->
 
@@ -22,7 +22,6 @@ MonitorPort="9002" MonitorRefresh="10"/>
 	<!-- Round Robin whole line 
 	<Variable Name="DataReadNextLine" Type="FileRead" AccessType="NEXT" Filename="h:\utils\vse\data\datafile.txt" />
 -->
-
 	<!-- current time -->
 	<Variable Name="TIMESTAMP" Type="Timestamp" Format="HH:mm:ss"/>
 	<!-- one hour in the future -->
@@ -52,9 +51,25 @@ MonitorPort="9002" MonitorRefresh="10"/>
 <!-- extracts from input based on tags -->
 	<Variable Name="extractGUID" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="GUID not found" /> 
 	<Variable Name="extractTEXT" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="TEXT not found" /> 
+	
+<!-- Number incremented -->
+<Variable Name="actionId" Type="Number" Filename="c:\data\actioid.txt"/> 
+<Variable Name="gameId" Type="Number"  Filename="c:\data\gameid.txt"/> 
+
 
 <!-- test all message types -->
 
+<!-- actionId -->
+	<ReceiverEvent Name="actionId" KeyType="STRING" KeyValue="actionId">
+		<EventMessage BaselineMessage="actionId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="actionId">%actionId%</BaselineMessage>
+	
+	<!-- gameId -->
+	<ReceiverEvent Name="gameId" KeyType="STRING" KeyValue="gameId">
+		<EventMessage BaselineMessage="gameId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="gameId">%gameId%</BaselineMessage>
 <!-- TIMESTAMP -->
 	<ReceiverEvent Name="timestamp" KeyType="STRING" KeyValue="timestamp">
 		<EventMessage BaselineMessage="timestamp" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>

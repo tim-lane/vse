@@ -1,15 +1,16 @@
-package com.vse.http;
+package com.vse.tcp;
 
 import com.vse.core.*;
 
 /**
-class: HttpStub
-Purpose: main method for HTTP stubbing
-Notes: http only
+class: TcpStub
+Purpose: main method for TCP stubbing
+Notes: tcp only
 Author: Tim Lane
 Date: 24/03/2014
 Version: 
 0.1 24/03/2014 lanet - initial write
+1.1 24/04/2017 lanet - updated for tcp
 **/
 
 import java.io.File;
@@ -43,24 +44,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class httpStub {
+public class tcpStub {
   
-  private HttpProperties httpProperties;
+  private TcpProperties tcpProperties;
   private ServerSocket serverSocket;
-  private HttpBaseLineMessage httpBaseLineMessage;
+  private TcpBaseLineMessage tcpBaseLineMessage;
   private LogFileProperties logFileProperties;
-  private static String httpVersion = "1.1";
+  private static String tcpVersion = "1.1";
   
   List<String> receiverEventsCntr = new ArrayList<String>();
   
-  // Create an HTTPStub for a particular TCP port
-  public httpStub(HttpProperties httpProperties, LogFileProperties logFileProperties)
+  // Create an TCPStub for a particular TCP port
+  public tcpStub(TcpProperties tcpProperties, LogFileProperties logFileProperties)
   {
-    this.httpProperties = httpProperties;
+    this.tcpProperties = tcpProperties;
     this.logFileProperties = logFileProperties;
   }
     
-  static Logger logger = Logger.getLogger(httpStub.class);
+  static Logger logger = Logger.getLogger(tcpStub.class);
   public static void main(String[] args) {
     
     /*
@@ -68,14 +69,14 @@ public class httpStub {
      */
     String configFileName = null;
     
-    System.out.println("httpStub: version " + httpVersion);
+    System.out.println("tcpStub: version " + tcpVersion);
     
     if (args.length > 0) {
       configFileName = args[0];
-      System.out.println("httpsStub: using config file: " + configFileName);
+      System.out.println("tcpsStub: using config file: " + configFileName);
     } else {
-      configFileName = "c:\\_git\\vse\\xml\\vseHttp.xml";
-      System.out.println("httpStub: using default config file: " + configFileName);
+      configFileName = "h:\\utils\\vse\\xml\\vseTcp.xml";
+      System.out.println("tcpStub: using default config file: " + configFileName);
     } 
     
     try {
@@ -83,20 +84,16 @@ public class httpStub {
        * open XML config file and from xml config file read HTTP properties
        */
       XMLExtractor extractor = new XMLExtractor(new FileInputStream(new File(configFileName)));
-      //System.out.println("httpStub: extracting : " + extractor.getElement("HTTPServer"));
-      HttpProperties httpProperties = new HttpProperties(extractor.getElement("HTTPServer"));
-      httpProperties.setConfigFileName(configFileName);
+      TcpProperties tcpProperties = new TcpProperties(extractor.getElement("TCPServer"));
+      tcpProperties.setConfigFileName(configFileName);
      
      /*
      * setup logging
      * TRACE < DEBUG < INFO < WARN < ERROR < FATAL
      */
-/*
-     * setup logging
-     * TRACE < DEBUG < INFO < WARN < ERROR < FATAL
-     */
+
       LogFileProperties logFileProperties = new LogFileProperties(extractor.getElement("Header")) ;
-      System.out.println("httpsStub: log4j config file : " + logFileProperties.getLogFileName()); 
+      System.out.println("tcpStub: log4j config file : " + logFileProperties.getLogFileName()); 
       PropertyConfigurator.configure(logFileProperties.getLogFileName());
       if (logFileProperties.getLogLevel().toUpperCase().equals("INFO")) {
         logger.setLevel(Level.INFO);
@@ -111,30 +108,30 @@ public class httpStub {
       } else if (logFileProperties.getLogLevel().toUpperCase().equals("TRACE")) {
         logger.setLevel(Level.TRACE);
       }
-      System.out.println("httpsStub: logging level set to : " + logger.getLevel().toString());
-      logger.info("Non SSL version " + httpVersion);
+      System.out.println("tcpStub: logging level set to : " + logger.getLevel().toString());
+      logger.info("version " + tcpVersion);
       
-      httpStub httpStub = new httpStub(httpProperties, logFileProperties);
-      httpStub.RunIsolator();
+      tcpStub tcpStub = new tcpStub(tcpProperties, logFileProperties);
+      tcpStub.RunIsolator();
     } catch (Exception e) {
       logger.error("error extracting XML file " + configFileName);
-      e.printStackTrace();
+      //e.printStackTrace();
        System.exit(1);
     }
    
   }
     
     ServerSocket getServerSocket() throws Exception {
-        logger.info("Preparing a regular HTTP Server Socket on server:port " + httpProperties.getServerIP() + ":" + httpProperties.getServerPort());
-        return new ServerSocket (httpProperties.getServerPort(),
-                                 httpProperties.getServerBacklog(), 
-                                 InetAddress.getByName(httpProperties.getServerIP()));
+        logger.info("Preparing a regular TCP Server Socket on server:port " + tcpProperties.getServerIP() + ":" + tcpProperties.getServerPort());
+        return new ServerSocket (tcpProperties.getServerPort(),
+                                 tcpProperties.getServerBacklog(), 
+                                 InetAddress.getByName(tcpProperties.getServerIP()));
 
     }
     
   public void RunIsolator() {
     
-    CoreProperties coreProperties = new CoreProperties(httpProperties.getConfigFileName(),logger);
+    CoreProperties coreProperties = new CoreProperties(tcpProperties.getConfigFileName(),logger);
     /*
      * display stub information to log file
      */
@@ -167,8 +164,8 @@ public class httpStub {
     /*
      * setup thread pool
      */
-    logger.info("setting up threadpool of size : " + httpProperties.getThreadCount()); 
-    ExecutorService executor = Executors.newFixedThreadPool(httpProperties.getThreadCount());
+    logger.info("setting up threadpool of size : " + tcpProperties.getThreadCount()); 
+    ExecutorService executor = Executors.newFixedThreadPool(tcpProperties.getThreadCount());
 
     boolean socketLoop = true;
     boolean connectionLoop = true;
@@ -184,7 +181,7 @@ public class httpStub {
         serverSocket.setSoTimeout(5 * 1000);
         
       } catch (Exception e) {
-        logger.error("Unable to listen on " + httpProperties.getServerIP() + ":" + httpProperties.getServerPort());
+        logger.error("Unable to listen on " + tcpProperties.getServerIP() + ":" + tcpProperties.getServerPort());
         e.printStackTrace();
         // exit on fail to bind port id.
         System.exit(1);
@@ -208,12 +205,12 @@ public class httpStub {
      
       }
           if (clientConnection != null) {
-            Runnable httpStubWorker = new HttpStubWorker(clientConnection, 
-                                                         httpProperties,
+            Runnable tcpStubWorker = new TcpStubWorker(clientConnection, 
+                                                         tcpProperties,
                                                          coreProperties,
                                                          logger,
                                                          receiverEventsCntr);
-            executor.execute(httpStubWorker);
+            executor.execute(tcpStubWorker);
             /*
              * 1.5
              */

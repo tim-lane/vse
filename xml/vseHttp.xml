@@ -3,7 +3,7 @@
 <!-- Configuration Section -->
 
 <!--  configuration  -->
-<TCPServer Host="localhost" Port="8888" ThreadCount="1000" 
+<HTTPServer Host="localhost" Port="8888" ThreadCount="1000" 
 MonitorPort="9002" MonitorRefresh="10"/>
 
 <StubMonitor MonitorHost="10.3.18.92" MonitorPort="9002" MonitorRefresh="10"/>
@@ -14,13 +14,14 @@ MonitorPort="9002" MonitorRefresh="10"/>
 	<Core Author="Tim Lane" Name="TCP TEST STUB" Description="TCP TEST STUB" > 
 	
 <!-- Date="07/02/2014"> -->
-	<Header DefaultReceiverEvent="SINK" LogLevel="DEBUG" LogFileName="h:\utils\vse\xml\log4j.properties"/>
+	<Header DefaultReceiverEvent="SINK" LogLevel="ERROR" LogFileName="c:\_git\vse\xml\log4j.properties"/>
 
 <!-- variable section -->
 
 <!-- generate a timestamp -->
-	<!-- Round Robin whole line -->
+	<!-- Round Robin whole line 
 	<Variable Name="DataReadNextLine" Type="FileRead" AccessType="NEXT" Filename="h:\utils\vse\data\datafile.txt" />
+-->
 
 	<!-- current time -->
 	<Variable Name="TIMESTAMP" Type="Timestamp" Format="HH:mm:ss"/>
@@ -51,26 +52,74 @@ MonitorPort="9002" MonitorRefresh="10"/>
 <!-- extracts from input based on tags -->
 	<Variable Name="extractGUID" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="GUID not found" /> 
 	<Variable Name="extractTEXT" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="TEXT not found" /> 
+	
+<!-- Number incremented -->
+<Variable Name="actionId" Type="Number" Format="%d" Filename="c:\data\actionid.txt"/> 
+<Variable Name="gameId" Type="Number"  Format="%d" Filename="c:\data\gameid.txt"/> 
+
+<Variable Name="ContentLength" Type="ContentLength" />
 
 <!-- test all message types -->
 
-<!-- actionId -->
-	<ReceiverEvent Name="actionId" KeyType="STRING" KeyValue="actionId">
-		<EventMessage BaselineMessage="actionId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
-	</ReceiverEvent>
-	<BaselineMessage Name="actionId">%actionId%</BaselineMessage>
-	
-	<!-- gameId -->
-	<ReceiverEvent Name="gameId" KeyType="STRING" KeyValue="gameId">
-		<EventMessage BaselineMessage="gameId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
-	</ReceiverEvent>
-	<BaselineMessage Name="gameId">%gameId%</BaselineMessage>
 <!-- TIMESTAMP -->
 	<ReceiverEvent Name="timestamp" KeyType="STRING" KeyValue="timestamp">
 		<EventMessage BaselineMessage="timestamp" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
 	</ReceiverEvent>
 	<BaselineMessage Name="timestamp">Timestamp (plus one hour) is: %TIMESTAMPplusOne% -- Timestamp is: %TIMESTAMP%</BaselineMessage>
 
+	<!-- actionId -->
+	<ReceiverEvent Name="actionId" KeyType="STRING" KeyValue="actionid">
+		<EventMessage BaselineMessage="actionId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="actionId"><![CDATA[HTTP/1.1 200 OK
+Date: Mon, 02 Dec 2013 08:57:36 GMT
+Server: IBM_HTTP_Server
+Cache-Control: no-cache
+Content-Length: %ContentLength%
+Set-Cookie: JSESSIONID=%SessionId%; Path=/
+Set-Cookie: PLAY_ERRORS=""; Path=/locationsapi/
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Connection: close
+Content-Type: application/html; charset=utf-8
+Content-Language: en-AU
+
+<body>%actionId%</body>]]></BaselineMessage>
+	
+	<!-- gameId -->
+	<ReceiverEvent Name="gameId" KeyType="STRING" KeyValue="gameid">
+		<EventMessage BaselineMessage="gameId" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="gameId"><![CDATA[HTTP/1.1 200 OK
+Date: Mon, 02 Dec 2013 08:57:36 GMT
+Server: IBM_HTTP_Server
+Cache-Control: no-cache
+Content-Length: %ContentLength%
+Set-Cookie: JSESSIONID=%SessionId%; Path=/
+Set-Cookie: PLAY_ERRORS=""; Path=/locationsapi/
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Connection: close
+Content-Type: application/html; charset=utf-8
+Content-Language: en-AU
+
+<body>%gameId%</body>]]></BaselineMessage>
+	
+		<!-- gameId -->
+	<ReceiverEvent Name="default" KeyType="STRING" KeyValue="HTTP">
+		<EventMessage BaselineMessage="default" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="default"><![CDATA[HTTP/1.1 200 OK
+Date: Mon, 02 Dec 2013 08:57:36 GMT
+Server: IBM_HTTP_Server
+Cache-Control: no-cache
+Content-Length: %ContentLength%
+Set-Cookie: JSESSIONID=%SessionId%; Path=/
+Set-Cookie: PLAY_ERRORS=""; Path=/locationsapi/
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Connection: close
+Content-Type: application/html; charset=utf-8
+Content-Language: en-AU
+
+<error>no receiver event matched</error>]]></BaselineMessage>
 
 
 </Core>
