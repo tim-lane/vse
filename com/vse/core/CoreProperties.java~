@@ -1,4 +1,4 @@
-package com.stubby.core;
+package com.vse.core;
 
 /**
 class: coreProperties
@@ -286,6 +286,8 @@ public class CoreProperties {
         message.setWaitFrom(messageElement.getAttribute("MinWait"));
         message.setWaitTo(messageElement.getAttribute("MaxWait"));
         message.setDecodeEscape(messageElement.getAttribute("DecodeEscape"));
+        message.setMessageType(messageElement.getAttribute("Type"));
+        
         return message;
     }
        

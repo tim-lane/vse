@@ -60,7 +60,8 @@ public class Variable {
   public static final String REGEX_TYPE = "Regex";
   // 2.2
   public static final String SESSION_LENGTH_TYPE = "SessionLength";
-  
+  // 2.3
+    public static final String JSON_TYPE = "JSON";
   
   private String regexString;
   
@@ -109,6 +110,8 @@ public class Variable {
   private String errorString;
   private String fileKeyColumn;
   private String fileDataColumn;
+  // 2.3
+  private String jsonElement;
 
   // v1.1
   String keyType;
@@ -487,7 +490,15 @@ public class Variable {
     return;
   }
   
-  
+  // 2.3
+    public void setJsonElement(String jsonElement) {
+    this.jsonElement = jsonElement;
+    return;
+  }
+ 
+  public String getJsonElement() {
+    return this.jsonElement;
+  }
   
     public void getDelimiter(String delimiter) {
     

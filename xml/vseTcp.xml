@@ -3,7 +3,7 @@
 <!-- Configuration Section -->
 
 <!--  configuration  -->
-<TCPServer Host="10.26.28.77" Port="8888" ThreadCount="1000" 
+<TCPServer Host="localhost" Port="8888" ThreadCount="1000" 
 MonitorPort="9002" MonitorRefresh="10"/>
 
 <StubMonitor MonitorHost="10.3.18.92" MonitorPort="9002" MonitorRefresh="10"/>
@@ -11,7 +11,7 @@ MonitorPort="9002" MonitorRefresh="10"/>
 
 <!-- version control -->
 <!-- v0.5 - Tim Lane - 07/02/2014 - initial version -->
-	<Core Author="Tim Lane" Name="TCP TEST STUB" Description="TCP TEST STUB" > 
+	<Core Author="Tim Lane" Name="TCP TEST STUB" Description="TCP TEST STUB v0.1" > 
 	
 <!-- Date="07/02/2014"> -->
 	<Header DefaultReceiverEvent="SINK" LogLevel="DEBUG" LogFileName="h:\utils\vse\xml\log4j.properties"/>
@@ -46,14 +46,24 @@ MonitorPort="9002" MonitorRefresh="10"/>
 <!-- end random value -->
 	
 <!-- following variables read data from a file either ROUND ROBIN (NEXT) or RANDOM -->
-	<!-- extracts from input based on position -->
-	<Variable Name="postionalVar" Type="Positional" StartPosition="30" Length="10" DefaultValue=" not found" />	
+
+<!-- extracts from input based on position -->
+	<Variable Name="postionalVar" Type="Positional" StartPosition="16" Length="10" DefaultValue=" not found" />	
+
+<!-- extracts from input based on json properties -->
+	<Variable Name="userName" Type="JSON"  Element="UserName" DefaultValue=" json username not found" />	
 
 <!-- extracts from input based on tags -->
 	<Variable Name="extractGUID" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="GUID not found" /> 
 	<Variable Name="extractTEXT" Type="Delimited" RightOf="=" LeftOf="&amp;" DefaultValue="TEXT not found" /> 
 
 <!-- test all message types -->
+
+	<ReceiverEvent Name="login" KeyType="STRING" KeyValue="0b0d">
+		<EventMessage BaselineMessage="login" WaitDistribution="UNIFORM" MinWait="0.1" MaxWait="0.5" Type="CDEF"/>
+	</ReceiverEvent>
+	<BaselineMessage Name="login">user logged in: %postionalVar% : correctly and returned %GUIDToken% JSON test %userName%</BaselineMessage>
+
 
 <!-- TIMESTAMP -->
 	<ReceiverEvent Name="timestamp" KeyType="STRING" KeyValue="timestamp">

@@ -214,6 +214,8 @@ public class CoreProperties {
             variable.setKeyType(variableElement.getAttribute("KeyType"));
             variable.setKeyValue(variableElement.getAttribute("KeyValue"));
             variable.setFileLookupVariable(variableElement.getAttribute("FileLookupVariable"));
+            // 2.3
+            variable.setJsonElement(variableElement.getAttribute("Element"));
             return variable;
         } catch (Exception e) {
             logger.error("CoreProperties: Error setting variables." + e);

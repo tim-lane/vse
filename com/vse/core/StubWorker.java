@@ -69,6 +69,8 @@ public class StubWorker {
   public static final String DATABASE_LOOKUP_TYPE = "DatabaseLookup";
   // 2.2
   public static final String SESSION_TYPE = "SessionId";
+  // 2.3
+    public static final String JSON_TYPE = "JSON";
   
   private RandomNumberGenerator randomGenerator;
   
@@ -177,7 +179,6 @@ public class StubWorker {
         responseMsg = responseMsg.replaceAll(seq.toString(), variableValue);
         // 2.1
       }
-      
     }
     return responseMsg;        
   }
@@ -217,6 +218,8 @@ public class StubWorker {
       variableValue = processRandomLongType(variable);
     } else if (variable.getType().equals(POSITIONAL_TYPE)){
       variableValue = processPositionalType(searchLine, variable);
+    } else if (variable.getType().equals(JSON_TYPE)){
+      variableValue = processJSONType(searchLine, variable);
     } else if (variable.getType().equals(GUID_TYPE)){
       variableValue = processGuidType();
     } else if (variable.getType().equals(SESSION_TYPE)){
@@ -237,6 +240,27 @@ public class StubWorker {
     return variableValue;
   }
   
+      public String processJSONType(String searchLine, Variable variable){
+    
+    String variableValue = null;
+    
+    try {
+      String jsonElement  = variable.getJsonElement();
+            
+    } catch( Exception e ) {
+      if (variable.getDefaultValue().length() > 0){
+        variableValue = variable.getDefaultValue();
+        logger.info("httpStubWorker: json variable " + variable.getName() 
+                      + " for element: " + variable.getJsonElement() + " default value used.");
+      } else {
+        logger.error("httpStubWorker: json variable " + variable.getName() 
+                       + " not found for: " + variable.getJsonElement() + ". " + e);
+        variableValue = variable.getName() + " not found"; // avoid null pointer errors
+      }
+    } 
+    return variableValue;
+  }
+      
   public String processFileReadType(Variable variable){
     String variableValue = "not found.";
     String arrayValue="";

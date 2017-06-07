@@ -43,7 +43,6 @@ import java.util.Collection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import org.apache.commons.codec.binary.Hex;
 
 public class TcpStubWorker extends StubWorker implements Runnable{
   
@@ -125,73 +124,52 @@ public class TcpStubWorker extends StubWorker implements Runnable{
     boolean end = false;
     String dataString = "";
     String messageString=null;
-    
-    InputStream in = null;
-    OutputStream out = null;
-    DataInputStream dis = null;
-    int byteLen = 0;
-    int count=0;
 
+    try{
+    DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+    int bytesRead = 0;
+        while(!end)
+    {
+        bytesRead = in.read(messageByte);
+        messageString += new String(messageByte, 0, bytesRead);
+        System.out.println("tcpstubworker: message: " + messageString);
+        if (messageString.length() == 10)
+        {
+            end = true;
+        }
+    }
+    System.out.println("MESSAGE: " + messageString);
+    } catch (Exception e) {
+        date = new Date();
+        formattedDate = sdf.format(date);
+        logger.error("tcpStubWorker: " + formattedDate + " error in establishing data reader : " + e);
+        e.printStackTrace();
+      }
+    
     // read the input
     try
     {
       tcpProperties.setActiveThreadCount();
       threadName = Printf.format("%.8d", new Object[] {Double.valueOf(Thread.currentThread().getId())});
       
-      try{
-        in = clientSocket.getInputStream();
-        dis = new DataInputStream(in);
-      } catch (Exception e) {
-        logger.error("tcpStubWorker: " + sdf.format(new Date()) + " error in establishing data reader : " + e);
-        e.printStackTrace();
-      }
-      // get the length of the bytestream from first two bytes
-      try {    
-        byteLen = dis.read();
-         if (logger.isDebugEnabled()) {
-          logger.debug("tcpStubWorker: " + sdf.format(new Date()) + " byte stream length: " + byteLen);
-        }
-      } catch (Exception e) {
-        logger.error("tcpStubWorker: " + sdf.format(new Date()) +  " error in establishing byte length: " + e);
-        e.printStackTrace();
-      }
-      
-      // establish a byte array of the correct length
-      byte[] bytes = new byte[byteLen];
-      // read the bytes
-      try {
-        count = in.read(bytes);
-      } catch (Exception e) {
-        logger.error("tcpStubWorker: " + sdf.format(new Date()) +  " error in reading bytes " + e);
-        e.printStackTrace();
-      }
-      // convert bytestream to hex
-      
-      //System.out.println("hex decode is: " +  Hex.encodeHexString( bytes ) );
-      String messageStrng = Hex.encodeHexString( bytes );
-      if (logger.isDebugEnabled()) {
-        logger.debug("tcpStubWorker: " + sdf.format(new Date()) + " hex is : " + messageStrng);
-      }
-      
-      
       /*
        * get header details 
        */
       Vector<String> inputMsgLines = new Vector<String>();
-//      try {
-//// tcp assumes single line for the moment, assumes enter is end of line ch = 10
-//        inStream = new TcpInputStream(clientSocket.getInputStream());
-//        inputMsgLines.addElement(inStream.readLine());
-//        
-//      } catch (Exception e) {
-//        date = new Date();
-//        formattedDate = sdf.format(date);
-//        logger.error("tcpStubWorker: " + formattedDate + " error in getting header : " + e);
-//        e.printStackTrace();
-//      }
-//      if (logger.isDebugEnabled()) {
-//        logger.debug("tcpStubWorker: inputMessage : " + inputMsgLines.toString());
-//      }
+      try {
+// tcp assumes single line for the moment, assumes enter is end of line ch = 10
+        inStream = new TcpInputStream(clientSocket.getInputStream());
+        inputMsgLines.addElement(inStream.readLine());
+        
+      } catch (Exception e) {
+        date = new Date();
+        formattedDate = sdf.format(date);
+        logger.error("tcpStubWorker: " + formattedDate + " error in getting header : " + e);
+        e.printStackTrace();
+      }
+      if (logger.isDebugEnabled()) {
+        logger.debug("tcpStubWorker: inputMessage : " + inputMsgLines.toString());
+      }
       /* 
        * have got the INPUT message now find the matching Response
        <ReceiverEvent Name="TestPageRECEIVEREVENT" KeyType="STRING" KeyValue="test_page">
@@ -203,8 +181,7 @@ public class TcpStubWorker extends StubWorker implements Runnable{
        * to get the corresponding BASELINEMESSAGE
        * 
        */
-      //searchLine = messageStrng.toString();
-      searchLine = messageStrng;
+      searchLine = inputMsgLines.toString();
       receiverName = getReceiverName(searchLine,coreProperties);
       
       String ip = clientSocket.getRemoteSocketAddress().toString();
@@ -218,7 +195,7 @@ public class TcpStubWorker extends StubWorker implements Runnable{
         logger.info(sdf.format(new Date()) 
                       + " RECV : T" + threadName + " " 
                       + receiverName + " " 
-                      + searchLine.toString().replaceAll("[\r\n]", ""));
+                      + inputMsgLines.toString().replaceAll("[\r\n]", ""));
       }
       /*
        * Once we have the receiver name then get the correspnding message config
@@ -232,13 +209,14 @@ public class TcpStubWorker extends StubWorker implements Runnable{
       waitFrom = message.getWaitFrom();
       waitTo = message.getWaitTo(); 
       messageType=message.getMessageType(); // cdef
-            
-//      if (messageType.equals("CDEF")){
-//        if (logger.isDebugEnabled()) {
-//          logger.debug("tcpStubWorker: processing CDEF message");
-//        }
-//        // any cdef pre processing here //
-//      }
+      
+      
+      if (messageType.equals("CDEF")){
+        if (logger.isDebugEnabled()) {
+          logger.debug("tcpStubWorker: processing CDEF message");
+        }
+        // any cdef pre processing here //
+      }
       
       /*
        * once we have set the message config find the corresponding BASELINE message (response data)
@@ -264,7 +242,9 @@ public class TcpStubWorker extends StubWorker implements Runnable{
         longWaitTime = Double.valueOf(waitTime * 1000).longValue();
         Thread.sleep(longWaitTime);
       } catch (InterruptedException e) {
-        logger.error("tcpStubWorker: " + sdf.format(new Date()) + " error in thread sleep : " + e);
+        date = new Date();
+        formattedDate = sdf.format(date);
+        logger.error("tcpStubWorker: " + formattedDate + " error in thread sleep : " + e);
         e.printStackTrace();
       }
       /*
@@ -278,10 +258,12 @@ public class TcpStubWorker extends StubWorker implements Runnable{
          */ 
         outStream.flush(); 
         outStream.close();
-        in.close();
+        inStream.close();
         clientSocket.close();          
       } catch (java.io.IOException e) {
-        logger.error("tcpStubWorker: " + sdf.format(new Date()) + " error in writing message : " + e);
+        date = new Date();
+        formattedDate = sdf.format(date);
+        logger.error("tcpStubWorker: " + formattedDate + " error in writing message : " + e);
         e.printStackTrace();
       }
       /*
@@ -296,7 +278,9 @@ public class TcpStubWorker extends StubWorker implements Runnable{
       }
       
     } catch (Exception e) { 
-      logger.error("tcpStubWorker: " + sdf.format(new Date()) + " error writing to output stream. : " + e.toString());
+      date = new Date();
+      formattedDate = sdf.format(date);
+      logger.error("tcpStubWorker: " + formattedDate + " error writing to output stream. : " + e.toString());
       e.printStackTrace();  
     } finally {
       

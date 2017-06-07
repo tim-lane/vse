@@ -50,7 +50,7 @@ public class tcpStub {
   private ServerSocket serverSocket;
   private TcpBaseLineMessage tcpBaseLineMessage;
   private LogFileProperties logFileProperties;
-  private static String tcpVersion = "1.1";
+  private static String tcpVersion = "1.2";
   
   List<String> receiverEventsCntr = new ArrayList<String>();
   
@@ -75,7 +75,7 @@ public class tcpStub {
       configFileName = args[0];
       System.out.println("tcpsStub: using config file: " + configFileName);
     } else {
-      configFileName = "c:\\_git\\vse\\xml\\vseTcp.xml";
+      configFileName = "c:\\git\\vse\\xml\\vseTcp.xml";
       System.out.println("tcpStub: using default config file: " + configFileName);
     } 
     
